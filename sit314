@@ -1,0 +1,14 @@
+PROCESS_THREAD(web_sense-process, ev, data)
+{
+  BEGIN();
+  SENSORS_ACTIVATE(light_sensor);
+  SENSORS_ACTIVATE(button_sensor);
+  PROCESS_WAIT_EVENT_UNTIL(ev == sensors_event && data == &button_sensor);
+  leds_toggle(LEDS_ALL);
+  printf("Button Clicked");
+  printf("Light: \%u \n", light_sensor.value(0));
+  PROCESS_END(); 
+}
+
+
+
